@@ -1,0 +1,73 @@
+{
+  "name": "neonrealm",
+  "productName": "NeonRealm",
+  "version": "1.0.0",
+  "description": "NeonRealm — the multiplayer neon city game, as a desktop app",
+  "author": "NeonRealm <neonrealm@example.com>",
+  "homepage": "https://github.com/neonrealm/neonrealm-desktop",
+  "license": "UNLICENSED",
+  "private": true,
+  "main": "main.js",
+  "desktopName": "neonrealm.desktop",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --publish never",
+    "dist:win": "electron-builder --win --publish never",
+    "dist:mac": "electron-builder --mac --publish never",
+    "dist:linux": "electron-builder --linux --publish never"
+  },
+  "devDependencies": {
+    "electron": "45.3.1",
+    "electron-builder": "26.18.0"
+  },
+  "build": {
+    "appId": "com.neonrealm.game",
+    "productName": "NeonRealm",
+    "copyright": "© NeonRealm",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "main.js",
+      "picker.html",
+      "picker-preload.js",
+      "build/icon.png",
+      "app/**/*"
+    ],
+    "win": {
+      "target": [{ "target": "nsis", "arch": ["x64"] }],
+      "artifactName": "NeonRealm-Setup-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "NeonRealm"
+    },
+    "mac": {
+      "target": [{ "target": "dmg", "arch": ["universal"] }],
+      "category": "public.app-category.games",
+      "artifactName": "NeonRealm-${version}-mac.${ext}",
+      "identity": "-",
+      "hardenedRuntime": false,
+      "extendInfo": {
+        "NSCameraUsageDescription": "NeonRealm uses your camera for your face cam in group calls.",
+        "NSMicrophoneUsageDescription": "NeonRealm uses your microphone so friends can hear you in calls."
+      }
+    },
+    "dmg": {
+      "sign": false
+    },
+    "linux": {
+      "target": ["AppImage", "deb"],
+      "category": "Game",
+      "executableName": "neonrealm",
+      "artifactName": "NeonRealm-${version}-linux-${arch}.${ext}",
+      "synopsis": "Multiplayer neon city game",
+      "syncDesktopName": true
+    },
+    "publish": null
+  }
+}
